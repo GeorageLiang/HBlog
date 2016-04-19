@@ -202,7 +202,7 @@
   
     <div class="article-meta">
       <a href="/2016/04/19/js-performance/" class="article-date">
-  	<time datetime="2016-04-19T10:27:11.000Z" itemprop="datePublished">2016-04-19</time>
+  	<time datetime="2016-04-19T10:29:19.000Z" itemprop="datePublished">2016-04-19</time>
 </a>
     </div>
   
@@ -224,8 +224,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>####加载执行</p>
-<ul>
+        <h4 id="u52A0_u8F7D_u6267_u884C"><a href="#u52A0_u8F7D_u6267_u884C" class="headerlink" title="加载执行"></a>加载执行</h4><ul>
 <li>脚本位置在body最后<br>由于js脚本加载执行会阻塞其他文件加载，影响页面渲染</li>
 </ul>
 <p>现代浏览器加载并行，彼此不会影响，但会影响其他文件</p>
@@ -242,8 +241,7 @@
 </code></pre><p>5.无阻塞模式<br>加载器函数引入+用加载器函数加载脚本<br>推荐：LABjs 加载器</p>
 <pre><code><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$LAB</span>.script(<span class="string">"file.js"</span>) <span class="comment">//加载</span></span><br><span class="line">.script(<span class="string">"file2.js"</span>) <span class="comment">//并行加载，链式调用</span></span><br><span class="line">.wait(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;&#125;) <span class="comment">//执行完成后的回调</span></span><br></pre></td></tr></table></figure>
 </code></pre><hr>
-<p>####数据存储</p>
-<ul>
+<h4 id="u6570_u636E_u5B58_u50A8"><a href="#u6570_u636E_u5B58_u50A8" class="headerlink" title="数据存储"></a>数据存储</h4><ul>
 <li>变量 &lt; 数组 &lt; 对象</li>
 <li>跨作用域访问会造成消耗<br>解决：用局部作用域缓存跨域变量<br>with性能低就是由于拉近别的作用域而疏远了自己的作用域</li>
 </ul>
