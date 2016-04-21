@@ -198,6 +198,99 @@
 
       <div class="body-wrap">
   
+    <article id="post-scope" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/21/scope/" class="article-date">
+  	<time datetime="2016-04-21T05:20:38.000Z" itemprop="datePublished">2016-04-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/21/scope/">执行环境&amp;作用域</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="u6267_u884C_u73AF_u5883"><a href="#u6267_u884C_u73AF_u5883" class="headerlink" title="执行环境"></a>执行环境</h4><ul>
+<li><code>函数</code>在什么环境下执行</li>
+<li>每个执行环境对应一个执行环境对像</li>
+<li>浏览器里</li>
+</ul>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span><span class="params">()</span><span class="comment">&#123;&#125;</span> <span class="comment">//函数定义</span></span><br><span class="line"><span class="title">a</span><span class="params">()</span> <span class="comment">//函数执行</span></span><br><span class="line">等价于</span><br><span class="line"><span class="title">window</span>.<span class="title">a</span><span class="params">()</span>;</span> <span class="comment">//执行环境就是window</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>node里<br>同理执行环境就是node</li>
+</ul>
+<h4 id="u4F5C_u7528_u57DF"><a href="#u4F5C_u7528_u57DF" class="headerlink" title="作用域"></a>作用域</h4><ul>
+<li>作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于<code>活动对象</code>,全局作用域则是<code>全局对象</code></li>
+<li>活动对象&amp;全局对象</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> c = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时是函数定义阶段，这时整个代码只有全局作用域（全局对象：window,a,函数b…）<br>只有函数被执行时，才会生成活动对象（this,arguments,c…）<code>个人理解为函数执行时可访问的局部元素</code></p>
+<h4 id="u4F5C_u7528_u57DF_u94FE"><a href="#u4F5C_u7528_u57DF_u94FE" class="headerlink" title="作用域链"></a>作用域链</h4><ul>
+<li>作用域链是在函数执行时期产生的，简单理解为数组，将当前函数活动对象放置于开头，然后依次复制定义时期的（父级的活动对象，全局对像）</li>
+<li>当代码执行时访问变量或函数时，会在（作用域链）中遍历每个作用域，找不到变量就向下一个作用域中去找（父级）直至到全局作用域</li>
+</ul>
+<h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><ul>
+<li>是函数的属性，this存在于<code>函数</code>中`</li>
+<li>指针，指向的是执行环境对象(函数的调用者)</li>
+</ul>
+<h4 id="apply__26amp_3B_call"><a href="#apply__26amp_3B_call" class="headerlink" title="apply &amp; call"></a>apply &amp; call</h4><ul>
+<li>在谁的作用域中调用谁</li>
+<li>区别：一个传数组，一个传多个参数</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;<span class="string">"c"</span>:<span class="number">10</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">()</span></span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.c)</span><br><span class="line">&#125;</span><br><span class="line">b.apply(a); <span class="comment">//等价于a.b();在a的作用域里调用b</span></span><br><span class="line">b.apply(<span class="keyword">this</span>) <span class="comment">//等价于this.b();window.b();</span></span><br></pre></td></tr></table></figure>
+<h4 id="new"><a href="#new" class="headerlink" title="new"></a>new</h4><ul>
+<li>能使用new的函数都是构造函数</li>
+<li>4个步骤<ol>
+<li>创建一个新的对象a</li>
+<li>在a的作用域里调用构造函数</li>
+<li>将参数传入进行构造</li>
+<li>返回对象a</li>
+</ol>
+</li>
+</ul>
+<pre><code>1. var a = new Object();
+2. Person.apply(a,[liang,10,man]); 
+//a.Person(liang,10,man);
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-js-performance" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

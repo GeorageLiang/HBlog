@@ -4,36 +4,51 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Js 性能优化 | GeorageLiang Blog</title>
+  <title>执行环境&amp;作用域 | GeorageLiang Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="加载执行
-脚本位置在body最后由于js脚本加载执行会阻塞其他文件加载，影响页面渲染
+  <meta name="description" content="执行环境
+函数在什么环境下执行
+每个执行环境对应一个执行环境对像
+浏览器里
 
-现代浏览器加载并行，彼此不会影响，但会影响其他文件
+1234function a()&amp;#123;&amp;#125; //函数定义a() //函数执行等价于window.a(); //执行环境就是window
 
-组织脚本减少js文件，减少请求合并js文件，合并请求
-非阻塞加载1.延迟加载defer，先下载（与其他资源并行下载）但不执行，等dom加载完成自后依次执行（window.onload之前）2.异步加载async，html5引用的属性，先下载（与其他资源并行下">
+node里同理执行环境就是node
+
+作用域
+作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于活动对象,全局作用域则是全局对象
+活动对象&amp;amp;全局">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Js 性能优化">
-<meta property="og:url" content="http://hblog.geoliang.top/2016/04/19/js-performance/index.html">
+<meta property="og:title" content="执行环境&作用域">
+<meta property="og:url" content="http://hblog.geoliang.top/2016/04/21/scope/index.html">
 <meta property="og:site_name" content="GeorageLiang Blog">
-<meta property="og:description" content="加载执行
-脚本位置在body最后由于js脚本加载执行会阻塞其他文件加载，影响页面渲染
+<meta property="og:description" content="执行环境
+函数在什么环境下执行
+每个执行环境对应一个执行环境对像
+浏览器里
 
-现代浏览器加载并行，彼此不会影响，但会影响其他文件
+1234function a()&amp;#123;&amp;#125; //函数定义a() //函数执行等价于window.a(); //执行环境就是window
 
-组织脚本减少js文件，减少请求合并js文件，合并请求
-非阻塞加载1.延迟加载defer，先下载（与其他资源并行下载）但不执行，等dom加载完成自后依次执行（window.onload之前）2.异步加载async，html5引用的属性，先下载（与其他资源并行下">
-<meta property="og:updated_time" content="2016-04-19T10:29:19.000Z">
+node里同理执行环境就是node
+
+作用域
+作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于活动对象,全局作用域则是全局对象
+活动对象&amp;amp;全局">
+<meta property="og:updated_time" content="2016-04-21T05:20:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Js 性能优化">
-<meta name="twitter:description" content="加载执行
-脚本位置在body最后由于js脚本加载执行会阻塞其他文件加载，影响页面渲染
+<meta name="twitter:title" content="执行环境&作用域">
+<meta name="twitter:description" content="执行环境
+函数在什么环境下执行
+每个执行环境对应一个执行环境对像
+浏览器里
 
-现代浏览器加载并行，彼此不会影响，但会影响其他文件
+1234function a()&amp;#123;&amp;#125; //函数定义a() //函数执行等价于window.a(); //执行环境就是window
 
-组织脚本减少js文件，减少请求合并js文件，合并请求
-非阻塞加载1.延迟加载defer，先下载（与其他资源并行下载）但不执行，等dom加载完成自后依次执行（window.onload之前）2.异步加载async，html5引用的属性，先下载（与其他资源并行下">
+node里同理执行环境就是node
+
+作用域
+作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于活动对象,全局作用域则是全局对象
+活动对象&amp;amp;全局">
   
     <link rel="alternative" href="/atom.xml" title="GeorageLiang Blog" type="application/atom+xml">
   
@@ -215,11 +230,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-js-performance" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-scope" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/19/js-performance/" class="article-date">
-  	<time datetime="2016-04-19T10:29:19.000Z" itemprop="datePublished">2016-04-19</time>
+      <a href="/2016/04/21/scope/" class="article-date">
+  	<time datetime="2016-04-21T05:20:38.000Z" itemprop="datePublished">2016-04-21</time>
 </a>
     </div>
   
@@ -232,7 +247,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Js 性能优化
+      执行环境&amp;作用域
     </h1>
   
 
@@ -248,29 +263,48 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="u52A0_u8F7D_u6267_u884C"><a href="#u52A0_u8F7D_u6267_u884C" class="headerlink" title="加载执行"></a>加载执行</h4><ul>
-<li>脚本位置在body最后<br>由于js脚本加载执行会阻塞其他文件加载，影响页面渲染</li>
+        <h4 id="u6267_u884C_u73AF_u5883"><a href="#u6267_u884C_u73AF_u5883" class="headerlink" title="执行环境"></a>执行环境</h4><ul>
+<li><code>函数</code>在什么环境下执行</li>
+<li>每个执行环境对应一个执行环境对像</li>
+<li>浏览器里</li>
 </ul>
-<p>现代浏览器加载并行，彼此不会影响，但会影响其他文件</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span><span class="params">()</span><span class="comment">&#123;&#125;</span> <span class="comment">//函数定义</span></span><br><span class="line"><span class="title">a</span><span class="params">()</span> <span class="comment">//函数执行</span></span><br><span class="line">等价于</span><br><span class="line"><span class="title">window</span>.<span class="title">a</span><span class="params">()</span>;</span> <span class="comment">//执行环境就是window</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>组织脚本<br>减少js文件，减少请求<br>合并js文件，合并请求</li>
-<li><p>非阻塞加载<br>1.延迟加载<br>defer，先下载（与其他资源并行下载）但不执行，等dom加载完成自后<code>依次</code>执行（window.onload之前）<br>2.异步加载<br>async，html5引用的属性，先下载（与其他资源并行下载）下载完立即执行，无顺序<br>3.动态脚本<br>解决：js执行阻塞其他资源,跨浏览器</p>
-  <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> script = document.creatElement(<span class="string">"script"</span>);</span><br><span class="line">script.type = <span class="string">"text/javascript"</span>;</span><br><span class="line">script.src = <span class="string">"file1.js"</span>;</span><br><span class="line"><span class="keyword">if</span>(script.readyState)&#123; <span class="comment">//IE</span></span><br><span class="line">	script.onreadystateChange = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(script.readyState == <span class="string">"loaded"</span> || script.readyState == <span class="string">"complete"</span>)&#123;</span><br><span class="line">		script.onreadystateChange = <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">callback</span>();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123; <span class="comment">//非IE</span></span><br><span class="line">	script.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">callback</span>();</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line">document.getElementByTagName(<span class="string">"head"</span>)[<span class="number">0</span>].appendChild(script);</span><br><span class="line"><span class="comment">//html5中 document.head.appendChild(script);</span></span><br></pre></td></tr></table></figure>
-<p>  js加载器形式</p>
-  <figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function loadScript(url,callback)<span class="decorator">&#123;...&#125;</span></span><br></pre></td></tr></table></figure>
+<li>node里<br>同理执行环境就是node</li>
+</ul>
+<h4 id="u4F5C_u7528_u57DF"><a href="#u4F5C_u7528_u57DF" class="headerlink" title="作用域"></a>作用域</h4><ul>
+<li>作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于<code>活动对象</code>,全局作用域则是<code>全局对象</code></li>
+<li>活动对象&amp;全局对象</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> c = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时是函数定义阶段，这时整个代码只有全局作用域（全局对象：window,a,函数b…）<br>只有函数被执行时，才会生成活动对象（this,arguments,c…）<code>个人理解为函数执行时可访问的局部元素</code></p>
+<h4 id="u4F5C_u7528_u57DF_u94FE"><a href="#u4F5C_u7528_u57DF_u94FE" class="headerlink" title="作用域链"></a>作用域链</h4><ul>
+<li>作用域链是在函数执行时期产生的，简单理解为数组，将当前函数活动对象放置于开头，然后依次复制定义时期的（父级的活动对象，全局对像）</li>
+<li>当代码执行时访问变量或函数时，会在（作用域链）中遍历每个作用域，找不到变量就向下一个作用域中去找（父级）直至到全局作用域</li>
+</ul>
+<h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><ul>
+<li>是函数的属性，this存在于<code>函数</code>中`</li>
+<li>指针，指向的是执行环境对象(函数的调用者)</li>
+</ul>
+<h4 id="apply__26amp_3B_call"><a href="#apply__26amp_3B_call" class="headerlink" title="apply &amp; call"></a>apply &amp; call</h4><ul>
+<li>在谁的作用域中调用谁</li>
+<li>区别：一个传数组，一个传多个参数</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;<span class="string">"c"</span>:<span class="number">10</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">()</span></span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.c)</span><br><span class="line">&#125;</span><br><span class="line">b.apply(a); <span class="comment">//等价于a.b();在a的作用域里调用b</span></span><br><span class="line">b.apply(<span class="keyword">this</span>) <span class="comment">//等价于this.b();window.b();</span></span><br></pre></td></tr></table></figure>
+<h4 id="new"><a href="#new" class="headerlink" title="new"></a>new</h4><ul>
+<li>能使用new的函数都是构造函数</li>
+<li>4个步骤<ol>
+<li>创建一个新的对象a</li>
+<li>在a的作用域里调用构造函数</li>
+<li>将参数传入进行构造</li>
+<li>返回对象a</li>
+</ol>
 </li>
 </ul>
-<p>4.XmlHttpRequest脚本注入</p>
-<pre><code><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = new <span class="type">XmlHttpRequest</span>();</span><br><span class="line">xhr.open(<span class="string">"get"</span>,<span class="string">"file1.js"</span>,<span class="string">"true"</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(script.readyState == <span class="number">4</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(xhr.status &gt;=<span class="number">200</span>)<span class="decorator">&#123;...&#125;</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-</code></pre><p>5.无阻塞模式<br>加载器函数引入+用加载器函数加载脚本<br>推荐：LABjs 加载器</p>
-<pre><code><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$LAB</span>.script(<span class="string">"file.js"</span>) <span class="comment">//加载</span></span><br><span class="line">.script(<span class="string">"file2.js"</span>) <span class="comment">//并行加载，链式调用</span></span><br><span class="line">.wait(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;&#125;) <span class="comment">//执行完成后的回调</span></span><br></pre></td></tr></table></figure>
-</code></pre><hr>
-<h4 id="u6570_u636E_u5B58_u50A8"><a href="#u6570_u636E_u5B58_u50A8" class="headerlink" title="数据存储"></a>数据存储</h4><ul>
-<li>变量 &lt; 数组 &lt; 对象</li>
-<li>跨作用域访问会造成消耗<br>解决：用局部作用域缓存跨域变量<br>with性能低就是由于拉近别的作用域而疏远了自己的作用域</li>
-</ul>
-<p>-</p>
-
+<pre><code>1. var a = new Object();
+2. Person.apply(a,[liang,10,man]); 
+//a.Person(liang,10,man);
+</code></pre>
       
     </div>
     
@@ -279,18 +313,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/04/21/scope/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          执行环境&amp;作用域
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/11/es-array/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Es5-数组</div>
+    <a href="/2016/04/19/js-performance/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Js 性能优化</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -325,7 +350,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="js-performance" data-title="Js 性能优化" data-url="http://hblog.geoliang.top/2016/04/19/js-performance/"></div>
+	<div class="ds-thread" data-thread-key="scope" data-title="执行环境&amp;作用域" data-url="http://hblog.geoliang.top/2016/04/21/scope/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
