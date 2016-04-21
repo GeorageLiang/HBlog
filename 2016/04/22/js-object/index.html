@@ -4,51 +4,51 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>执行环境&amp;作用域 | GeorageLiang Blog</title>
+  <title>对象 &amp; 原型 &amp; 继承 | GeorageLiang Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="执行环境
-函数在什么环境下执行
-每个执行环境对应一个执行环境对像
-浏览器里
+  <meta name="description" content="对象属性遍历(可枚举)
+for-in (可枚举)
+Object.keys(a1) (可枚举)
+Object.getOwnPropertyNames(a1)(可枚举+不可枚举)
 
-1234function a()&amp;#123;&amp;#125; //函数定义a() //函数执行等价于window.a(); //执行环境就是window
+对象内部属性1.数据属性
 
-node里同理执行环境就是node
-
-作用域
-作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于活动对象,全局作用域则是全局对象
-活动对象&amp;amp;全局">
+[configurable] //内部属性是否可配置，改变后就不能改变
+[enumerable] //是否可遍历
+[writable] //能否修改值
+[value] //值2.访问器属性
+[c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="执行环境&作用域">
-<meta property="og:url" content="http://hblog.geoliang.top/2016/04/21/scope/index.html">
+<meta property="og:title" content="对象 & 原型 & 继承">
+<meta property="og:url" content="http://hblog.geoliang.top/2016/04/22/js-object/index.html">
 <meta property="og:site_name" content="GeorageLiang Blog">
-<meta property="og:description" content="执行环境
-函数在什么环境下执行
-每个执行环境对应一个执行环境对像
-浏览器里
+<meta property="og:description" content="对象属性遍历(可枚举)
+for-in (可枚举)
+Object.keys(a1) (可枚举)
+Object.getOwnPropertyNames(a1)(可枚举+不可枚举)
 
-1234function a()&amp;#123;&amp;#125; //函数定义a() //函数执行等价于window.a(); //执行环境就是window
+对象内部属性1.数据属性
 
-node里同理执行环境就是node
-
-作用域
-作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于活动对象,全局作用域则是全局对象
-活动对象&amp;amp;全局">
-<meta property="og:updated_time" content="2016-04-21T05:20:38.000Z">
+[configurable] //内部属性是否可配置，改变后就不能改变
+[enumerable] //是否可遍历
+[writable] //能否修改值
+[value] //值2.访问器属性
+[c">
+<meta property="og:updated_time" content="2016-04-21T18:20:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="执行环境&作用域">
-<meta name="twitter:description" content="执行环境
-函数在什么环境下执行
-每个执行环境对应一个执行环境对像
-浏览器里
+<meta name="twitter:title" content="对象 & 原型 & 继承">
+<meta name="twitter:description" content="对象属性遍历(可枚举)
+for-in (可枚举)
+Object.keys(a1) (可枚举)
+Object.getOwnPropertyNames(a1)(可枚举+不可枚举)
 
-1234function a()&amp;#123;&amp;#125; //函数定义a() //函数执行等价于window.a(); //执行环境就是window
+对象内部属性1.数据属性
 
-node里同理执行环境就是node
-
-作用域
-作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于活动对象,全局作用域则是全局对象
-活动对象&amp;amp;全局">
+[configurable] //内部属性是否可配置，改变后就不能改变
+[enumerable] //是否可遍历
+[writable] //能否修改值
+[value] //值2.访问器属性
+[c">
   
     <link rel="alternative" href="/atom.xml" title="GeorageLiang Blog" type="application/atom+xml">
   
@@ -230,11 +230,11 @@ node里同理执行环境就是node
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-scope" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-js-object" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/21/scope/" class="article-date">
-  	<time datetime="2016-04-21T05:20:38.000Z" itemprop="datePublished">2016-04-21</time>
+      <a href="/2016/04/22/js-object/" class="article-date">
+  	<time datetime="2016-04-21T18:20:40.000Z" itemprop="datePublished">2016-04-22</time>
 </a>
     </div>
   
@@ -247,7 +247,7 @@ node里同理执行环境就是node
         
   
     <h1 class="article-title" itemprop="name">
-      执行环境&amp;作用域
+      对象 &amp; 原型 &amp; 继承
     </h1>
   
 
@@ -263,48 +263,51 @@ node里同理执行环境就是node
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="u6267_u884C_u73AF_u5883"><a href="#u6267_u884C_u73AF_u5883" class="headerlink" title="执行环境"></a>执行环境</h4><ul>
-<li><code>函数</code>在什么环境下执行</li>
-<li>每个执行环境对应一个执行环境对像</li>
-<li>浏览器里</li>
+        <h4 id="u5BF9_u8C61_u5C5E_u6027_u904D_u5386_28_u53EF_u679A_u4E3E_29"><a href="#u5BF9_u8C61_u5C5E_u6027_u904D_u5386_28_u53EF_u679A_u4E3E_29" class="headerlink" title="对象属性遍历(可枚举)"></a>对象属性遍历(可枚举)</h4><ul>
+<li>for-in (可枚举)</li>
+<li>Object.keys(a1) (可枚举)</li>
+<li>Object.getOwnPropertyNames(a1)(可枚举+不可枚举)</li>
 </ul>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span><span class="params">()</span><span class="comment">&#123;&#125;</span> <span class="comment">//函数定义</span></span><br><span class="line"><span class="title">a</span><span class="params">()</span> <span class="comment">//函数执行</span></span><br><span class="line">等价于</span><br><span class="line"><span class="title">window</span>.<span class="title">a</span><span class="params">()</span>;</span> <span class="comment">//执行环境就是window</span></span><br></pre></td></tr></table></figure>
+<h4 id="u5BF9_u8C61_u5185_u90E8_u5C5E_u6027"><a href="#u5BF9_u8C61_u5185_u90E8_u5C5E_u6027" class="headerlink" title="对象内部属性"></a>对象内部属性</h4><p>1.数据属性</p>
 <ul>
-<li>node里<br>同理执行环境就是node</li>
+<li>[configurable] //内部属性是否可配置，改变后就不能改变</li>
+<li>[enumerable] //是否可遍历</li>
+<li>[writable] //能否修改值</li>
+<li>[value] //值<br>2.访问器属性</li>
+<li>[configurable] //内部属性是否可配置，改变后就不能改变</li>
+<li>[enumerable] //是否可遍历</li>
+<li>[get] //获取function //通过修改某值来改变其他值</li>
+<li>[set] //设置function //通过修改某值来改变其他值<br>3.设置内部属性</li>
+<li>Object.defineProperty(book,”years”,{});<br>4.获取内部属性</li>
+<li>Object.getOwnPropertyDescriptor(book,”years”);</li>
 </ul>
-<h4 id="u4F5C_u7528_u57DF"><a href="#u4F5C_u7528_u57DF" class="headerlink" title="作用域"></a>作用域</h4><ul>
-<li>作用域（全局作用域，局部作用域），局部作用域也指函数作用域，也等价于<code>活动对象</code>,全局作用域则是<code>全局对象</code></li>
-<li>活动对象&amp;全局对象</li>
+<h4 id="u521B_u5EFA_u5BF9_u8C61"><a href="#u521B_u5EFA_u5BF9_u8C61" class="headerlink" title="创建对象"></a>创建对象</h4><p>1.工厂模式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> man = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">	man.name = name;</span><br><span class="line">	man.age = age;</span><br><span class="line">	man.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> man;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>优点：减少创建代码，隐藏new</li>
+<li>缺点：缺少对象识别</li>
 </ul>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">var</span> c = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时是函数定义阶段，这时整个代码只有全局作用域（全局对象：window,a,函数b…）<br>只有函数被执行时，才会生成活动对象（this,arguments,c…）<code>个人理解为函数执行时可访问的局部元素</code></p>
-<h4 id="u4F5C_u7528_u57DF_u94FE"><a href="#u4F5C_u7528_u57DF_u94FE" class="headerlink" title="作用域链"></a>作用域链</h4><ul>
-<li>作用域链是在函数执行时期产生的，简单理解为数组，将当前函数活动对象放置于开头，然后依次复制定义时期的（父级的活动对象，全局对像）</li>
-<li>当代码执行时访问变量或函数时，会在（作用域链）中遍历每个作用域，找不到变量就向下一个作用域中去找（父级）直至到全局作用域</li>
+<p>2.构造函数模式</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">(name,age)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.age = age;</span><br><span class="line">	<span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>优点：封装，对象识别</li>
+<li>缺点：相同红能的函数被多次创建</li>
 </ul>
-<h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><ul>
-<li>是函数的属性，this存在于<code>函数</code>中`</li>
-<li>指针，指向的是执行环境对象(函数的调用者)</li>
+<p>3.原型模式</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">()</span></span>&#123;&#125;; <span class="comment">//构造函数</span></span><br></pre></td></tr></table></figure>
+<p>4.组合模式</p>
+<h4 id="u539F_u578B__26amp_3B_u539F_u578B_u94FE"><a href="#u539F_u578B__26amp_3B_u539F_u578B_u94FE" class="headerlink" title="原型 &amp;原型链"></a>原型 &amp;原型链</h4><ul>
+<li>构造函数 &amp; 原型对象 &amp; 实例</li>
+<li>实例与原型对象</li>
+<li>原型链</li>
 </ul>
-<h4 id="apply__26amp_3B_call"><a href="#apply__26amp_3B_call" class="headerlink" title="apply &amp; call"></a>apply &amp; call</h4><ul>
-<li>在谁的作用域中调用谁</li>
-<li>区别：一个传数组，一个传多个参数</li>
+<p>对象 —— 原型链<br>函数 —— 作用域链</p>
+<h4 id="u7EE7_u627F"><a href="#u7EE7_u627F" class="headerlink" title="继承"></a>继承</h4><ul>
+<li>原型链继承</li>
+<li>借用构造函数继承</li>
+<li>组合继承</li>
 </ul>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> a = &#123;<span class="string">"c"</span>:<span class="number">10</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b</span><span class="params">()</span></span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.c)</span><br><span class="line">&#125;</span><br><span class="line">b.apply(a); <span class="comment">//等价于a.b();在a的作用域里调用b</span></span><br><span class="line">b.apply(<span class="keyword">this</span>) <span class="comment">//等价于this.b();window.b();</span></span><br></pre></td></tr></table></figure>
-<h4 id="new"><a href="#new" class="headerlink" title="new"></a>new</h4><ul>
-<li>能使用new的函数都是构造函数</li>
-<li>4个步骤<ol>
-<li>创建一个新的对象a</li>
-<li>在a的作用域里调用构造函数</li>
-<li>将参数传入进行构造</li>
-<li>返回对象a</li>
-</ol>
-</li>
-</ul>
-<pre><code>1. var a = new Object();
-2. Person.apply(a,[liang,10,man]); 
-//a.Person(liang,10,man);
-</code></pre>
+
       
     </div>
     
@@ -313,18 +316,9 @@ node里同理执行环境就是node
     
 <nav id="article-nav">
   
-    <a href="/2016/04/22/js-object/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          对象 &amp; 原型 &amp; 继承
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/04/19/js-performance/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Js 性能优化</div>
+    <a href="/2016/04/21/scope/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">执行环境&amp;作用域</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -359,7 +353,7 @@ node里同理执行环境就是node
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="scope" data-title="执行环境&amp;作用域" data-url="http://hblog.geoliang.top/2016/04/21/scope/"></div>
+	<div class="ds-thread" data-thread-key="js-object" data-title="对象 &amp; 原型 &amp; 继承" data-url="http://hblog.geoliang.top/2016/04/22/js-object/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

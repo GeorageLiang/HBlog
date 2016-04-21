@@ -198,6 +198,102 @@
 
       <div class="body-wrap">
   
+    <article id="post-js-object" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/22/js-object/" class="article-date">
+  	<time datetime="2016-04-21T18:20:40.000Z" itemprop="datePublished">2016-04-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/22/js-object/">对象 &amp; 原型 &amp; 继承</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="u5BF9_u8C61_u5C5E_u6027_u904D_u5386_28_u53EF_u679A_u4E3E_29"><a href="#u5BF9_u8C61_u5C5E_u6027_u904D_u5386_28_u53EF_u679A_u4E3E_29" class="headerlink" title="对象属性遍历(可枚举)"></a>对象属性遍历(可枚举)</h4><ul>
+<li>for-in (可枚举)</li>
+<li>Object.keys(a1) (可枚举)</li>
+<li>Object.getOwnPropertyNames(a1)(可枚举+不可枚举)</li>
+</ul>
+<h4 id="u5BF9_u8C61_u5185_u90E8_u5C5E_u6027"><a href="#u5BF9_u8C61_u5185_u90E8_u5C5E_u6027" class="headerlink" title="对象内部属性"></a>对象内部属性</h4><p>1.数据属性</p>
+<ul>
+<li>[configurable] //内部属性是否可配置，改变后就不能改变</li>
+<li>[enumerable] //是否可遍历</li>
+<li>[writable] //能否修改值</li>
+<li>[value] //值<br>2.访问器属性</li>
+<li>[configurable] //内部属性是否可配置，改变后就不能改变</li>
+<li>[enumerable] //是否可遍历</li>
+<li>[get] //获取function //通过修改某值来改变其他值</li>
+<li>[set] //设置function //通过修改某值来改变其他值<br>3.设置内部属性</li>
+<li>Object.defineProperty(book,”years”,{});<br>4.获取内部属性</li>
+<li>Object.getOwnPropertyDescriptor(book,”years”);</li>
+</ul>
+<h4 id="u521B_u5EFA_u5BF9_u8C61"><a href="#u521B_u5EFA_u5BF9_u8C61" class="headerlink" title="创建对象"></a>创建对象</h4><p>1.工厂模式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> man = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">	man.name = name;</span><br><span class="line">	man.age = age;</span><br><span class="line">	man.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> man;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>优点：减少创建代码，隐藏new</li>
+<li>缺点：缺少对象识别</li>
+</ul>
+<p>2.构造函数模式</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">(name,age)</span></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.age = age;</span><br><span class="line">	<span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>优点：封装，对象识别</li>
+<li>缺点：相同红能的函数被多次创建</li>
+</ul>
+<p>3.原型模式</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">()</span></span>&#123;&#125;; <span class="comment">//构造函数</span></span><br></pre></td></tr></table></figure>
+<p>4.组合模式</p>
+<h4 id="u539F_u578B__26amp_3B_u539F_u578B_u94FE"><a href="#u539F_u578B__26amp_3B_u539F_u578B_u94FE" class="headerlink" title="原型 &amp;原型链"></a>原型 &amp;原型链</h4><ul>
+<li>构造函数 &amp; 原型对象 &amp; 实例</li>
+<li>实例与原型对象</li>
+<li>原型链</li>
+</ul>
+<p>对象 —— 原型链<br>函数 —— 作用域链</p>
+<h4 id="u7EE7_u627F"><a href="#u7EE7_u627F" class="headerlink" title="继承"></a>继承</h4><ul>
+<li>原型链继承</li>
+<li>借用构造函数继承</li>
+<li>组合继承</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-scope" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
